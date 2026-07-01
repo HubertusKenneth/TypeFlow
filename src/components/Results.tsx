@@ -31,7 +31,6 @@ export function Results({ state, config, onRestart }: ResultsProps) {
 
   return (
     <div className="w-full max-w-3xl mx-auto animate-slide-up">
-      {/* Main Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <StatCard
           icon={<Zap className="w-5 h-5" />}
@@ -61,21 +60,14 @@ export function Results({ state, config, onRestart }: ResultsProps) {
         />
       </div>
 
-      {/* Detailed Stats */}
       <div className="bg-dark-surface/30 dark:bg-light-surface/30 rounded-2xl p-6 border border-dark-muted/10 dark:border-light-muted/10 mb-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8">
-          <DetailStat label="Correct Words" value={correctWords} />
-          <DetailStat label="Incorrect Words" value={incorrectWords} />
-          <DetailStat label="Correct Chars" value={state.correctChars} />
-          <DetailStat label="Incorrect Chars" value={state.incorrectChars} />
-          <DetailStat label="Consistency" value={`${consistency}%`} />
           <DetailStat label="Total Words" value={state.wordHistory.length} />
           <DetailStat label="Test Mode" value={config.mode === 'time' ? `${config.time}s` : `${config.wordCount} words`} isString />
           <DetailStat label="Difficulty" value={config.difficulty} isString />
         </div>
       </div>
 
-      {/* Action Buttons */}
       <div className="flex items-center justify-center gap-4">
         <button
           onClick={onRestart}

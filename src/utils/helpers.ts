@@ -82,16 +82,12 @@ function getWordPoolByDifficulty(difficulty: DifficultyLevel): string[] {
 
   switch (difficulty) {
     case 'easy':
-      // Easy: 100% short words (<= 4 letters)
       return easyWords;
     case 'medium':
-      // Medium: Mostly 5-6 letter words, with a small mix of short words for natural flow
       return [...mediumWords, ...mediumWords, ...easyWords.slice(0, 20)];
     case 'hard':
-      // Hard: Heavy emphasis on long words (> 6 letters), mixed with some medium words
       return [...hardWords, ...hardWords, ...hardWords, ...mediumWords.slice(0, 20)];
     case 'insane':
-      // Insane: Same pool as hard, but generateWords will add punctuation and uppercase
       return [...hardWords, ...hardWords, ...hardWords, ...mediumWords.slice(0, 20)];
     default:
       return commonWords;

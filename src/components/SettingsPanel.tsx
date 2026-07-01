@@ -38,7 +38,6 @@ export function SettingsPanel({ config, onConfigChange, isTyping }: SettingsPane
       onMouseDown={(e) => e.preventDefault()}
     >
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-        {/* Mode Toggle */}
         <div className="flex flex-wrap items-center justify-center bg-dark-surface/50 dark:bg-light-surface/50 rounded-xl p-1 border border-dark-muted/10 dark:border-light-muted/10">
           <button
             onClick={() => handleModeChange('time')}
@@ -64,7 +63,6 @@ export function SettingsPanel({ config, onConfigChange, isTyping }: SettingsPane
           </button>
         </div>
 
-        {/* Time Options */}
         {config.mode === 'time' && (
           <div className="flex flex-wrap items-center justify-center bg-dark-surface/50 dark:bg-light-surface/50 rounded-xl p-1 border border-dark-muted/10 dark:border-light-muted/10">
             {timeOptions.map((time) => (
@@ -83,7 +81,6 @@ export function SettingsPanel({ config, onConfigChange, isTyping }: SettingsPane
           </div>
         )}
 
-        {/* Word Count Options */}
         {config.mode === 'words' && (
           <div className="flex flex-wrap items-center justify-center bg-dark-surface/50 dark:bg-light-surface/50 rounded-xl p-1 border border-dark-muted/10 dark:border-light-muted/10">
             {wordCountOptions.map((count) => (
@@ -102,7 +99,6 @@ export function SettingsPanel({ config, onConfigChange, isTyping }: SettingsPane
           </div>
         )}
 
-        {/* Difficulty */}
         <div className="flex flex-wrap items-center justify-center bg-dark-surface/50 dark:bg-light-surface/50 rounded-xl p-1 border border-dark-muted/10 dark:border-light-muted/10">
           {difficultyOptions.map((diff) => (
             <button
@@ -121,7 +117,6 @@ export function SettingsPanel({ config, onConfigChange, isTyping }: SettingsPane
         </div>
       </div>
 
-      {/* Additional Options */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mt-3 sm:mt-4">
         <button
           onClick={() => handleToggle('includePunctuation')}

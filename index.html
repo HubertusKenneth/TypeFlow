@@ -15,11 +15,9 @@
 <body
   style="margin: 0; background-color: #000000; color: #e4e4e7; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; justify-content: center; height: 100vh;">
   <script>
-    // Automatically use dark background, but if user explicitly has the visually light theme (which is 'dark' in localStorage due to inverted logic), we can adapt.
-    // Actually, for the loader, a dark background is usually universally fine and avoids the flashbang effect.
     try {
-      var theme = localStorage.getItem('typeflow-theme') || 'dark'; // default is 'dark' (visually light)
-      if (theme === 'dark') { // Inverted logic: 'dark' is visually white
+      var theme = localStorage.getItem('typeflow-theme') || 'dark';
+      if (theme === 'dark') {
         document.documentElement.classList.add('dark');
         document.body.style.backgroundColor = '#fafafa';
         document.body.style.color = '#18181b';
@@ -54,7 +52,6 @@
   <div id="root" style="display: none;"></div>
   <script type="module">
     import '/src/main.tsx';
-    // Hide loader once React mounts into #root
     const observer = new MutationObserver((mutations, obs) => {
       const root = document.getElementById('root');
       if (root.children.length > 0) {

@@ -10,8 +10,7 @@ export function LiveStats({ state, config }: LiveStatsProps) {
   const [, setTick] = useState(0);
 
   useEffect(() => {
-    // [FITUR BARU] Tambahkan validasi !state.isTyping agar timer di layar ikut ter-pause
-    if (!state.startTime || state.isComplete || !state.isTyping) return;
+    if (!state.isTyping || state.isComplete || config.mode !== 'time') return;
     
     const id = setInterval(() => setTick((t) => t + 1), 100);
     return () => clearInterval(id);
@@ -42,9 +41,8 @@ export function LiveStats({ state, config }: LiveStatsProps) {
   const charsTyped = state.correctChars + state.incorrectChars;
 
   return (
-    <div className="w-full max-w-4xl mx-auto mb-8">
+    <div className="w-full max-w-4xl mx-auto mb-8 animate-fade-in">
       <div className="grid grid-cols-2 gap-4 md:flex md:items-center md:justify-center md:gap-8 py-4">
-        {/* Timer */}
         <div className="text-center">
           <div className="text-3xl md:text-4xl font-bold text-dark-text dark:text-light-text tabular-nums">
             {minutes > 0 ? `${minutes}:${secs.toString().padStart(2, '0')}` : `${displaySeconds}`}
@@ -54,7 +52,6 @@ export function LiveStats({ state, config }: LiveStatsProps) {
 
         <div className="hidden md:block w-px h-12 bg-dark-muted/20 dark:bg-light-muted/20" />
 
-        {/* WPM */}
         <div className="text-center">
           <div className="text-3xl md:text-4xl font-bold text-dark-accent dark:text-light-accent tabular-nums">
             {state.startTime ? currentWpm : 0}
@@ -64,7 +61,6 @@ export function LiveStats({ state, config }: LiveStatsProps) {
 
         <div className="hidden md:block w-px h-12 bg-dark-muted/20 dark:bg-light-muted/20" />
 
-        {/* Accuracy */}
         <div className="text-center">
           <div className="text-3xl md:text-4xl font-bold text-dark-correct dark:text-light-correct tabular-nums">
             {state.startTime ? currentAccuracy : 100}%
@@ -74,7 +70,6 @@ export function LiveStats({ state, config }: LiveStatsProps) {
 
         <div className="hidden md:block w-px h-12 bg-dark-muted/20 dark:bg-light-muted/20" />
 
-        {/* Words/Chars */}
         <div className="text-center">
           <div className="text-lg md:text-xl font-bold text-dark-text dark:text-light-text tabular-nums">
             {wordsCompleted}

@@ -27,7 +27,6 @@ export function useTypingTest(config: TestConfig) {
   const configRef = useRef(config);
   configRef.current = config;
 
-  // [FITUR BARU] Menyimpan kapan test mulai di-pause
   const pauseTimeRef = useRef<number | null>(null);
 
   const resetTest = useCallback(() => {
@@ -60,10 +59,8 @@ export function useTypingTest(config: TestConfig) {
     }));
   }, []);
 
-  // [FITUR BARU] Fungsi untuk memberhentikan waktu sementara
   const pauseTest = useCallback(() => {
     setState((prev) => {
-      // Hanya bisa dipause kalau test sudah berjalan dan belum selesai
       if (!prev.startTime || prev.isComplete || !prev.isTyping) return prev;
       
       pauseTimeRef.current = Date.now();
@@ -75,18 +72,14 @@ export function useTypingTest(config: TestConfig) {
     });
   }, []);
 
-  // [FITUR BARU] Fungsi untuk melanjutkan waktu
   const resumeTest = useCallback(() => {
     setState((prev) => {
       if (!prev.startTime || prev.isComplete || !pauseTimeRef.current) return prev;
       
-      // Kalkulasi berapa lama user AFK/keluar, lalu geser startTime ke depan
-      // supaya durasi pause tidak masuk dalam hitungan WPM
       const pausedDuration = Date.now() - pauseTimeRef.current;
       const newStartTime = prev.startTime + pausedDuration;
       pauseTimeRef.current = null;
 
-      // Jalankan kembali timer jika mode 'time'
       if (configRef.current.mode === 'time') {
         if (timerRef.current) clearInterval(timerRef.current);
         timerRef.current = window.setInterval(() => {
@@ -255,6 +248,5 @@ export function useTypingTest(config: TestConfig) {
     [submitWord]
   );
 
-  // PASTIKAN pauseTest dan resumeTest diekspor
   return { state, handleInput, resetTest, endTest, pauseTest, resumeTest };
 }

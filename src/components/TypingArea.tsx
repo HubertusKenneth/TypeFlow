@@ -5,7 +5,6 @@ interface TypingAreaProps {
   state: TypingState;
   onInput: (key: string) => void;
   onRestart: () => void;
-  // Tambahan tipe props
   pauseTest: () => void;
   resumeTest: () => void;
 }
@@ -101,17 +100,16 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         onKeyDown={handleKeyDown}
         onBlur={() => {
           setIsFocused(false);
-          pauseTest(); // Panggil fungsi pause dari hook
+          pauseTest();
         }}
         onFocus={() => {
           setIsFocused(true);
-          resumeTest(); // Panggil fungsi resume dari hook
+          resumeTest();
         }}
       />
       
       <div
         ref={containerRef}
-        // [SOLUSI MAGIC]: Cegah browser melepas fokus saat mengklik di dalam area kotak!
         onMouseDown={(e) => e.preventDefault()}
         className="relative h-48 md:h-56 overflow-hidden leading-relaxed cursor-default transition-all p-4 sm:p-6 md:p-8 bg-dark-surface/30 dark:bg-light-surface/30 rounded-2xl border border-dark-muted/10 dark:border-light-muted/10 select-none"
       >
