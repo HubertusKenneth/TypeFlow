@@ -1,0 +1,36 @@
+export const commonWords = [
+  'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'it',
+  'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at', 'this',
+  'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she', 'or',
+  'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their', 'what', 'so',
+  'up', 'out', 'if', 'about', 'who', 'get', 'which', 'go', 'me', 'when',
+  'make', 'can', 'like', 'time', 'no', 'just', 'him', 'know', 'take', 'people',
+  'into', 'year', 'your', 'good', 'some', 'could', 'them', 'see', 'other', 'than',
+  'then', 'now', 'look', 'only', 'come', 'its', 'over', 'think', 'also', 'back',
+  'after', 'use', 'two', 'how', 'our', 'work', 'first', 'well', 'way', 'even',
+  'new', 'want', 'because', 'any', 'these', 'give', 'day', 'most', 'us', 'is',
+  'was', 'are', 'been', 'has', 'had', 'were', 'said', 'each', 'does', 'did',
+  'may', 'before', 'should', 'such', 'here', 'where', 'being', 'through', 'while', 'still',
+  'every', 'found', 'great', 'made', 'between', 'must', 'right', 'never', 'those', 'same',
+  'world', 'life', 'against', 'part', 'since', 'long', 'much', 'too', 'late', 'above',
+  'man', 'woman', 'children', 'years', 'place', 'hand', 'high', 'small', 'large', 'next',
+  'early', 'young', 'important', 'few', 'public', 'bad', 'same', 'able', 'already', 'easy',
+  'hard', 'open', 'stop', 'start', 'end', 'last', 'again', 'below', 'under', 'around',
+  'home', 'room', 'house', 'family', 'school', 'state', 'country', 'city', 'water', 'air',
+  'food', 'door', 'line', 'side', 'face', 'eye', 'head', 'hand', 'arm', 'body',
+  'information', 'question', 'problem', 'point', 'fact', 'idea', 'thing', 'call', 'need', 'try',
+  'ask', 'keep', 'let', 'begin', 'seem', 'help', 'show', 'hear', 'play', 'run',
+  'move', 'live', 'believe', 'hold', 'bring', 'happen', 'write', 'provide', 'sit', 'stand',
+  'lose', 'pay', 'meet', 'include', 'continue', 'set', 'learn', 'change', 'lead', 'understand',
+  'watch', 'follow', 'stop', 'create', 'speak', 'read', 'allow', 'add', 'spend', 'close',
+  'talk', 'win', 'offer', 'remember', 'love', 'consider', 'appear', 'buy', 'wait', 'serve',
+  'die', 'send', 'expect', 'build', 'stay', 'fall', 'cut', 'reach', 'kill', 'remain',
+  'suggest', 'raise', 'pass', 'sell', 'require', 'report', 'decide', 'pull', 'develop', 'break',
+  'keyboard', 'letter', 'word', 'sentence', 'paragraph', 'text', 'type', 'fast', 'speed', 'test',
+  'practice', 'improve', 'accuracy', 'rhythm', 'flow', 'smooth', 'quick', 'rapid', 'swift', 'precise',
+  'accuracy', 'master', 'skill', 'learn', 'progress', 'challenge', 'goal', 'achieve', 'success', 'perfect',
+  'professional', 'expert', 'beginner', 'advanced', 'intermediate', 'level', 'score', 'result', 'wpm', 'keystroke'
+].sort(() => Math.random() - 0.5);
+
+export const punctuationMarks = ['.', ',', '!', '?', ';', ':', "'", '"', '(', ')', '-'];
+export const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];

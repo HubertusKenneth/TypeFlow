@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'JetBrains Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    /* transition-colors handled by view transition; only fallback here */
+    @apply transition-colors duration-[0ms];
+  }
+
+  * {
+    @apply outline-none;
+  }
+
+  ::selection {
+    @apply bg-cyan-500/30;
+  }
+}
+
+/* ── View Transition: ripple from theme toggle button ── */
+@keyframes theme-ripple-in {
+  from { clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%)); }
+  to   { clip-path: circle(200vmax at var(--theme-x, 50%) var(--theme-y, 50%)); }
+}
+
+::view-transition-old(root) {
+  /* Keep old snapshot frozen underneath — the ripple slides over it */
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation: theme-ripple-in 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 2;
+}
+
+@layer components {
+  .typing-word {
+    @apply relative inline-block mr-2 mb-2 transition-all duration-150;
+  }
+
+  .typing-char {
+    @apply relative inline-block transition-colors duration-100;
+  }
+
+  .typing-char.correct {
+    @apply text-dark-correct dark:text-light-correct;
+  }
+
+  .typing-char.incorrect {
+    @apply text-dark-error dark:text-light-error;
+  }
+
+  .typing-char.extra {
+    @apply text-dark-error dark:text-light-error opacity-60;
+  }
+
+  .caret {
+    @apply absolute w-0.5 h-6 bg-dark-cursor dark:bg-light-cursor animate-caret-blink;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent;
+  }
+}

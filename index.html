@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/TypeFlowLogo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TypeFlow - Typing Speed Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body
+  style="margin: 0; background-color: #000000; color: #e4e4e7; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; justify-content: center; height: 100vh;">
+  <script>
+    // Automatically use dark background, but if user explicitly has the visually light theme (which is 'dark' in localStorage due to inverted logic), we can adapt.
+    // Actually, for the loader, a dark background is usually universally fine and avoids the flashbang effect.
+    try {
+      var theme = localStorage.getItem('typeflow-theme') || 'dark'; // default is 'dark' (visually light)
+      if (theme === 'dark') { // Inverted logic: 'dark' is visually white
+        document.documentElement.classList.add('dark');
+        document.body.style.backgroundColor = '#fafafa';
+        document.body.style.color = '#18181b';
+      } else {
+        document.documentElement.classList.add('light');
+        document.body.style.backgroundColor = '#000000';
+        document.body.style.color = '#e4e4e7';
+      }
+    } catch (e) { }
+  </script>
+  <div id="initial-loader" style="text-align: center;">
+    <style>
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(34, 211, 238, 0.2);
+        border-top-color: #22d3ee;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px auto;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <div class="spinner"></div>
+    <div style="font-size: 14px; opacity: 0.7; letter-spacing: 1px;">LOADING TYPEFLOW...</div>
+  </div>
+  <div id="root" style="display: none;"></div>
+  <script type="module">
+    import '/src/main.tsx';
+    // Hide loader once React mounts into #root
+    const observer = new MutationObserver((mutations, obs) => {
+      const root = document.getElementById('root');
+      if (root.children.length > 0) {
+        document.getElementById('initial-loader').style.display = 'none';
+        root.style.display = 'block';
+        document.body.style.display = 'block';
+        document.body.style.height = 'auto';
+        obs.disconnect();
+      }
+    });
+    observer.observe(document.getElementById('root'), { childList: true });
+  </script>
+</body>
+
+</html>
