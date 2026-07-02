@@ -57,7 +57,17 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
   }, [state.currentWordIndex]);
 
   const typedRef = useRef(state.typed);
-  typedRef.current = state.typed;
+  const lastWordIndex = useRef(state.currentWordIndex);
+  const lastWords = useRef(state.words);
+
+  if (lastWordIndex.current !== state.currentWordIndex || lastWords.current !== state.words) {
+    if (inputRef.current) {
+      inputRef.current.value = state.typed;
+    }
+    typedRef.current = state.typed;
+    lastWordIndex.current = state.currentWordIndex;
+    lastWords.current = state.words;
+  }
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -124,7 +134,7 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         type="text"
         className="absolute opacity-0 pointer-events-none w-0 h-0"
         autoFocus
-        value={state.typed}
+        defaultValue={state.typed}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         autoComplete="off"
