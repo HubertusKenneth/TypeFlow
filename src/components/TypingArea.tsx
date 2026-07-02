@@ -56,6 +56,9 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
     }
   }, [state.currentWordIndex]);
 
+  const typedRef = useRef(state.typed);
+  typedRef.current = state.typed;
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Tab') {
@@ -78,21 +81,23 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
-      const typed = state.typed;
+      const typed = typedRef.current;
 
       if (val.length > typed.length) {
         const added = val.slice(typed.length);
         for (const char of added) {
           onInput(char);
         }
+        typedRef.current = typed + added;
       } else if (val.length < typed.length) {
         const diff = typed.length - val.length;
         for (let i = 0; i < diff; i++) {
           onInput('Backspace');
         }
+        typedRef.current = typed.slice(0, typed.length - diff);
       }
     },
-    [state.typed, onInput]
+    [onInput]
   );
 
   const handleContainerClick = useCallback(() => {
