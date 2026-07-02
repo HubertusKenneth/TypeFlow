@@ -68,9 +68,31 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         onRestart();
         return;
       }
-      onInput(e.key);
+      if (e.key === 'Backspace' && state.typed.length === 0) {
+        onInput('Backspace');
+      }
     },
-    [onInput, onRestart, state.isComplete]
+    [onInput, onRestart, state.isComplete, state.typed.length]
+  );
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      const typed = state.typed;
+
+      if (val.length > typed.length) {
+        const added = val.slice(typed.length);
+        for (const char of added) {
+          onInput(char);
+        }
+      } else if (val.length < typed.length) {
+        const diff = typed.length - val.length;
+        for (let i = 0; i < diff; i++) {
+          onInput('Backspace');
+        }
+      }
+    },
+    [state.typed, onInput]
   );
 
   const handleContainerClick = useCallback(() => {
@@ -97,7 +119,14 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         type="text"
         className="absolute opacity-0 pointer-events-none w-0 h-0"
         autoFocus
+        value={state.typed}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
+        autoComplete="off"
+        autoCapitalize="off"
+        autoCorrect="off"
+        spellCheck="false"
+        data-gramm="false"
         onBlur={() => {
           setIsFocused(false);
           pauseTest();
