@@ -56,16 +56,11 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
     }
   }, [state.currentWordIndex]);
 
-  const typedRef = useRef('');
-  const lastWords = useRef(state.words);
+  const typedRef = useRef(state.typed);
 
-  if (lastWords.current !== state.words) {
-    if (inputRef.current) {
-      inputRef.current.value = '';
-    }
-    typedRef.current = '';
-    lastWords.current = state.words;
-  }
+  useEffect(() => {
+    typedRef.current = state.typed;
+  }, [state.typed]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -79,9 +74,11 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         onRestart();
         return;
       }
-      // Backspace is naturally handled by onChange as the uncontrolled input shrinks.
+      if (e.key === 'Backspace' && state.typed.length === 0) {
+        onInput('Backspace');
+      }
     },
-    [onRestart, state.isComplete]
+    [onInput, onRestart, state.isComplete, state.typed.length]
   );
 
   const handleChange = useCallback(
@@ -128,9 +125,9 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
       <input
         ref={inputRef}
         type="text"
-        className="absolute opacity-0 pointer-events-none w-0 h-0"
+        className="absolute inset-0 w-full h-full opacity-0 text-transparent bg-transparent z-10 cursor-default"
         autoFocus
-        defaultValue=""
+        value={state.typed}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         autoComplete="off"
