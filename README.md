@@ -62,4 +62,3 @@ This will generate a `dist` folder containing the optimized static files that ar
 - `src/utils/`: Contains utility functions and types (e.g., word generation logic).
 
 ---
-Built with ❤️ using React and Tailwind CSS.
