@@ -41,7 +41,7 @@ export function LiveStats({ state, config }: LiveStatsProps) {
   const charsTyped = state.correctChars + state.incorrectChars;
 
   return (
-    <div className="w-full max-w-4xl mx-auto mb-8 animate-fade-in">
+    <div className="w-full max-w-4xl mx-auto mb-4 animate-fade-in">
       <div className="grid grid-cols-2 gap-4 md:flex md:items-center md:justify-center md:gap-8 py-4">
         <div className="text-center">
           <div className="text-3xl md:text-4xl font-bold text-dark-text dark:text-light-text tabular-nums">

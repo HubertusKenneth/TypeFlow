@@ -46,7 +46,7 @@ function App() {
 
       <Header onLogoClick={handleRestart} />
 
-      <main className="min-h-screen pt-20 pb-8 px-4 md:px-6">
+      <main className="min-h-screen pt-[4.5rem] pb-4 px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
           {!state.isComplete ? (
             <>
@@ -58,6 +58,19 @@ function App() {
                 pauseTest={pauseTest}
                 resumeTest={resumeTest}
               />
+              
+              <div className="flex justify-center mt-4 mb-2">
+                <button
+                  onClick={handleRestart}
+                  onMouseDown={(e) => e.preventDefault()}
+                  className="p-2 text-dark-muted hover:text-dark-text dark:text-light-muted dark:hover:text-light-text transition-all duration-200 rounded-full hover:bg-dark-surface/50 dark:hover:bg-light-surface/50 active:scale-95"
+                  title="Restart Test"
+                  aria-label="Restart Test"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-cw"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                </button>
+              </div>
+
               <LiveStats state={state} config={config} />
             </>
           ) : (
@@ -66,23 +79,23 @@ function App() {
             </div>
           )}
 
-          <div className="mt-12 text-center animate-fade-in">
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-dark-muted dark:text-light-muted mb-6">
+          <div className="mt-4 text-center animate-fade-in">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-dark-muted dark:text-light-muted mb-4">
               <div className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-dark-surface/30 dark:bg-light-surface/30 rounded border border-dark-muted/10 dark:border-light-muted/10 text-xs">Space</kbd>
+                <kbd className="px-2 py-1 bg-dark-surface/30 dark:bg-light-surface/30 rounded border border-dark-muted/10 dark:border-light-muted/10 text-[10px] sm:text-xs">Space</kbd>
                 <span>next word</span>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-dark-surface/30 dark:bg-light-surface/30 rounded border border-dark-muted/10 dark:border-light-muted/10 text-xs">Backspace</kbd>
+                <kbd className="px-2 py-1 bg-dark-surface/30 dark:bg-light-surface/30 rounded border border-dark-muted/10 dark:border-light-muted/10 text-[10px] sm:text-xs">Backspace</kbd>
                 <span>delete</span>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="px-2 py-1 bg-dark-surface/30 dark:bg-light-surface/30 rounded border border-dark-muted/10 dark:border-light-muted/10 text-xs">Tab</kbd>
+                <kbd className="px-2 py-1 bg-dark-surface/30 dark:bg-light-surface/30 rounded border border-dark-muted/10 dark:border-light-muted/10 text-[10px] sm:text-xs">Tab</kbd>
                 <span>restart</span>
               </div>
             </div>
 
-            <div className="pt-8 mt-12 border-t border-dark-muted/10 dark:border-light-muted/10">
+            <div className="pt-3 mt-4 border-t border-dark-muted/10 dark:border-light-muted/10">
               <p className="text-dark-muted dark:text-light-muted text-xs">
                 Click the typing area or press any key to start typing
               </p>
