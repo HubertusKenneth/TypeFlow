@@ -25,8 +25,8 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (
-        inputRef.current && 
-        !state.isComplete && 
+        inputRef.current &&
+        !state.isComplete &&
         document.activeElement !== inputRef.current
       ) {
         if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.length === 1) {
@@ -56,16 +56,14 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
     }
   }, [state.currentWordIndex]);
 
-  const typedRef = useRef(state.typed);
-  const lastWordIndex = useRef(state.currentWordIndex);
+  const typedRef = useRef('');
   const lastWords = useRef(state.words);
 
-  if (lastWordIndex.current !== state.currentWordIndex || lastWords.current !== state.words) {
+  if (lastWords.current !== state.words) {
     if (inputRef.current) {
-      inputRef.current.value = state.typed;
+      inputRef.current.value = '';
     }
-    typedRef.current = state.typed;
-    lastWordIndex.current = state.currentWordIndex;
+    typedRef.current = '';
     lastWords.current = state.words;
   }
 
@@ -81,11 +79,9 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         onRestart();
         return;
       }
-      if (e.key === 'Backspace' && state.typed.length === 0) {
-        onInput('Backspace');
-      }
+      // Backspace is naturally handled by onChange as the uncontrolled input shrinks.
     },
-    [onInput, onRestart, state.isComplete, state.typed.length]
+    [onRestart, state.isComplete]
   );
 
   const handleChange = useCallback(
@@ -134,7 +130,7 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         type="text"
         className="absolute opacity-0 pointer-events-none w-0 h-0"
         autoFocus
-        defaultValue={state.typed}
+        defaultValue=""
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         autoComplete="off"
@@ -151,7 +147,7 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
           resumeTest();
         }}
       />
-      
+
       <div
         ref={containerRef}
         onMouseDown={(e) => e.preventDefault()}
@@ -160,15 +156,15 @@ export function TypingArea({ state, onInput, onRestart, pauseTest, resumeTest }:
         <div className={`${state.isComplete || !isFocused ? 'blur-sm opacity-30' : ''} transition-all duration-300`}>
           {words}
         </div>
-        
+
         {!isFocused && !state.isComplete && (
           <div className="absolute inset-0 flex items-center justify-center z-10 backdrop-blur-[2px]">
             <div className="flex flex-col items-center justify-center gap-2 text-dark-text dark:text-light-text animate-fade-in">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-dark-muted dark:text-light-muted">
-                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
-                <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
-                <circle cx="12" cy="13" r="2"/>
-                <path d="M12 17v.01"/>
+                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <circle cx="12" cy="13" r="2" />
+                <path d="M12 17v.01" />
               </svg>
               <p className="text-sm sm:text-base md:text-lg font-medium tracking-wide text-center px-4">Click here or press any key to focus</p>
             </div>
@@ -195,7 +191,7 @@ function displayWords(state: TypingState): React.ReactNode {
     const historyWord = isPastWord ? state.wordHistory[wordIndex] : null;
 
     const chars = word.split('');
-    
+
     let extraChars = '';
     if (isCurrentWord) {
       extraChars = state.typed.slice(word.length);
@@ -253,7 +249,7 @@ function displayWords(state: TypingState): React.ReactNode {
             {char}
           </span>
         ))}
-        
+
         {isCurrentWord && state.currentCharIndex >= word.length && (
           <span className="inline-block w-0.5 h-5 -mb-1 bg-dark-accent dark:bg-light-accent animate-caret-blink" />
         )}
